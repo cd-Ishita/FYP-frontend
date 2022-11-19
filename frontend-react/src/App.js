@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import axios from 'axios'
 
-const endpoint = '/uploadFile'
+const endpoint = 'http://localhost:3000/uploadFile'
 
 class App extends Component {
   constructor() {
