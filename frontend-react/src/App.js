@@ -47,6 +47,7 @@ class App extends Component {
         <input type="file" name="recFile" id="" onChange={this.handleselectedFile} />
         <button onClick={this.handleUpload}>Upload</button>
         <div> {Math.round(this.state.loaded, 2)} %</div>
+        <h5></h5>
       </div>
     )
   }
