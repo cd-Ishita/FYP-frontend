@@ -18,13 +18,37 @@ class App extends Component {
       loaded: 0,
     })
   }
-  handleUpload = () => {
+  handleUploadBMC = () => {
     const data = new FormData()
     data.append('file', this.state.selectedFile, this.state.selectedFile.name)
 
     try {
         let result = axios
-        .post(endpoint, data, {
+        .post(endpoint+"BMC", data, {
+          onUploadProgress: ProgressEvent => {
+            this.setState({
+              loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
+            })
+          },
+        })
+        .then(res => {
+          console.log("Output: ", res.statusText)
+        })
+
+    } catch (error) {
+        console.error(error.response.data)
+    }
+
+      
+  }
+
+  handleUploadCHC = () => {
+    const data = new FormData()
+    data.append('file', this.state.selectedFile, this.state.selectedFile.name)
+
+    try {
+        let result = axios
+        .post(endpoint+"CHC", data, {
           onUploadProgress: ProgressEvent => {
             this.setState({
               loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
@@ -45,9 +69,10 @@ class App extends Component {
     return (
       <div className="App">
         <input type="file" name="recFile" id="" onChange={this.handleselectedFile} />
-        <button onClick={this.handleUpload}>Upload</button>
+        <button onClick={this.handleUploadBMC}>BMC Engine</button>
+        <button onClick={this.handleUploadCHC}>CHC Engine</button>
         <div> {Math.round(this.state.loaded, 2)} %</div>
-        <h5></h5>
+        
       </div>
     )
   }
